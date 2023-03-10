@@ -136,7 +136,6 @@ subj_id = expInfo['subjInfo']['observer']
 # Loading monitor definitions
 monitores = st.monitor_def() 
 
-#mon, expInfo['monitor'] = exp.define_monitor(monitores[1]) # select the correct monitor
 mon, expInfo['monitor'] = exp.define_monitor(monitores[1]) # select the correct monitor
 
 # Creating a new experimental window
@@ -219,12 +218,14 @@ def routines(dim):
     x_m,y_m=mouse.getPos()  
 
 ## Experiment design
+def circdist(angles1,angles2):       
+    return np.angle(np.exp(1j*angles1)/np.exp(1j*angles2))
 
 #block_priors = np.random.permutation(np.array([0, 45, 225])) # lets make 0 to be random distribution (assigning kappa = 0 later)
 #block_priors = np.repeat(block_priors, nblock_reps) ; #np.tile(block_priors, nblocks)
 nblock_reps = 1
 prior_offset = 135 # difference in degrees between both angles
-prior_1 = np.random.uniform(low=0, high=359, size=1)[0] # random initial position
+prior_1 = np.random.uniform(low=1, high=360, size=1)[0] # random initial position
 prior_2 = (prior_1 + (np.random.choice([-1,1] , 1)[0]*prior_offset)) % 360  # summing in circular space (but randomly flipping whether the difference is positive or negative)
             #resp_init = exp.toCar(st_prop['radius'],np.rad2deg(z))
 if prior_1 > 180: prior_1 = prior_1 -360
@@ -234,7 +235,7 @@ prior_2 = np.round(prior_2, 1)
 
 block_priors = [0, 0, prior_1, prior_1, prior_1, 0, 0, prior_2, prior_2, prior_2]
 if subj_id == 'test':   block_priors = [0] #[0] # for test demo only one block
-prior_kappa = 4 # kappa for the von mises distribution
+prior_kappa = 1 # kappa for the von mises distribution
 
 
 expInfo['block_priors'] = [block_priors, prior_kappa] # block priors and kappa
@@ -325,7 +326,7 @@ for thisBlock in range(main_exp['nblocks']): # iterate over blocks
             angle = angle + block_priors[thisBlock] # shifting and correcting angles to be in the range of -180 to 180
             if angle > 180: angle = angle -360
             if angle < -180: angle = angle +360
-
+            
             # mapping orientation in x y coordinates
             xstim,ystim = exp.toCar(st_prop['radius']+1.5,angle)  # 1.5 corrects for the different in radius between the cue and the ring
             
@@ -516,7 +517,8 @@ for thisBlock in range(main_exp['nblocks']): # iterate over blocks
                 choice_pos=rep_pos
                 choice_ang= float("%.2f" % exp.getAngle(rep_pos))
                 choice_r=float("%.2f" % (norm(rep_pos)))
-                err_ang= angle_T- choice_ang
+                err_ang = np.rad2deg(circdist( np.deg2rad(angle_T),np.deg2rad(choice_ang)))
+                #err_ang= circdist( np.deg2rad(angle_T),np.deg2rad(choice_ang)) 
                 err_r=float("%.2f" % (st_prop['radius']-(choice_r)))# -*- coding: utf-8 -*-
             # if sst: p_port.write(b'00')  # send trigger
             else:
@@ -535,10 +537,10 @@ for thisBlock in range(main_exp['nblocks']): # iterate over blocks
             ring.draw()
             routines(False)
                             
-            if err_ang>180:
-                err_ang=err_ang-360
+           # if err_ang>180:
+           #    err_ang=err_ang-360
                 
-            prec_angle.append(err_ang)    
+            #prec_angle.append(err_ang)    
             trial_data = [subj_id, n_trial,thisBlock,block_priors[thisBlock],prior_kappa, ct, t_delay,kfix,keypressed,
                         r_T,angle_T,thisTrial['stim_sd'],
                         choice_pos[0],choice_pos[1],z,
@@ -555,7 +557,8 @@ for thisBlock in range(main_exp['nblocks']): # iterate over blocks
 
             # Feedback color scale
 
-            abs_err_angle = np.abs(np.round(err_ang)) 
+            abs_err_angle = np.abs(np.round(err_ang))
+
             if abs_err_angle < 5:
                 col_fb = 'green'
             if abs_err_angle >= 5 and abs_err_angle < 25:
@@ -623,14 +626,15 @@ for thisBlock in range(main_exp['nblocks']): # iterate over blocks
         
         
                        
-    prec_angle=np.array(prec_angle)                           
-    prec_angle= prec_angle[~np.isnan(prec_angle)]                           
-    abs_err = np.mean(abs(prec_angle))
+    #prec_angle=np.array(prec_angle)                           
+    #prec_angle= prec_angle[~np.isnan(prec_angle)]                           
+    #abs_err = np.mean(abs(prec_angle))
 
    # if sst: win.callOnFlip(p_port.write, tg_zero.encode()) # send trigger
     routines(False)
 
-my_eyetracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA, gaze_data_callback)
+if tobii:
+    my_eyetracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA, gaze_data_callback)
 
 main_exp['monitor_features'] = monitor_features
 main_exp['stim_props'] = st_prop

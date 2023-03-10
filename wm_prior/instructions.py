@@ -5,14 +5,17 @@ import numpy as np
 
 
 
-def main_instructions(win):
+
+def main_instructions_ieeg(win):
        
     inst = visual.TextStim(win, pos = [0,0])
     inst.wrapWidth = 20
-    inst.text = "Instrucciones DEMO 1/3: \
+    inst.text = "Práctica: \
     En este experimento tendrás que recordar la posición de un estimulo que aparecera brevemente alrededor del punto de fijacion.\
-    Después desaparacerá, y moviendo el ratón lateralmente habrás de ajustar la posición de una marca para que coincida.\
-    Cuando estés mas o menos segura de la posición, harás clic con el ratón y verás por cuanto te has equivocado"
+    Después desaparacerá, y moviendo el ratón lateralmente habrás de ajustar la posición de una marca roja para que coincida con la posición recordada.\
+     \
+    Cuando estés mas o menos segura de la posición, harás clic con el ratón y verás por cuantos grados de ángulo te has equivocado"
+    
     inst.height = 0.7
     nextt = visual.TextStim(win, pos = [0,-6])
     nextt.wrapWidth = 20
@@ -24,9 +27,42 @@ def main_instructions(win):
     win.flip()
     event.waitKeys(keyList = ["space"])
 
-    inst.text = "Instrucciones DEMO 2/3: \
-    Además de recordar la posición tendrás que estar atenta al punto de fijación porque invariablemente este parpaderará sutilmente.\
-    SI DETECTAS QUE EL PUNTO DE FIJACIÓN HA PARPADEADO, en lugar de reportar la orientación del estímulo PULSA LA BARRA ESPACIADORA.\
+    inst.text = "ES MUY IMPORTANTE QUE TRATES DE MANTENER LOS OJOS EN EL PUNTO DE FIJACIÓN DURANTE CADA TRIAL YA QUE SI EL EYE-TRACKER DETECTA QUE NO ESTAS MIRANDO AL CENTRO EL TRIAL SE REINICIARÁ\
+    Al final de cada bloque puedes descansar lo que necesites. También si estas cansada puedes mover los ojos un poco al final de cada trial. \
+    El experimento tiene una duración de 6 bloques de 6 minutos aproximadamente cada uno. Tomatelo con calma y gracias por participar!"
+    inst.draw()
+    nextt.draw()
+    win.flip()
+    event.waitKeys(keyList = ["space"])
+    
+    return
+
+
+
+def main_instructions(win):
+       
+    inst = visual.TextStim(win, pos = [0,0])
+    inst.wrapWidth = 20
+    inst.text = "Práctica: \
+    En este experimento tendrás que recordar la posición de un estimulo que aparecera brevemente alrededor del punto de fijacion.\
+    Después desaparacerá, y moviendo el ratón lateralmente habrás de ajustar la posición de una marca roja para que coincida con la posición recordada.\
+     \
+    Cuando estés mas o menos segura de la posición, harás clic con el ratón y verás por cuantos grados de ángulo te has equivocado"
+    
+    inst.height = 0.7
+    nextt = visual.TextStim(win, pos = [0,-6])
+    nextt.wrapWidth = 20
+    nextt.height = 0.7
+    nextt.color = 'black'
+    nextt.text = "Pulsa spacio para continuar "
+    inst.draw()
+    nextt.draw()
+    win.flip()
+    event.waitKeys(keyList = ["space"])
+
+    inst.text = "Práctica: \
+    Además de recordar la posición tendrás que estar atenta al punto de fijación porque invariablemente este parpaderará sutílmente.\
+    SI DETECTAS QUE EL PUNTO DE FIJACIÓN HA PARPADEADO, en lugar de reportar la orientación del estímulo, EN LA FASE DE RESPUESTA HABRÁS DE PULSAR LA BARRA ESPACIADORA.\
     Cuando reportes tu respuesta, recibirás feedback sobre si te has equivocado"
     inst.height = 0.7
     nextt = visual.TextStim(win, pos = [0,-6])
@@ -40,8 +76,10 @@ def main_instructions(win):
     event.waitKeys(keyList = ["space"])
 
     
-    inst.text = "ES MUY IMPORTANTE QUE TRATES DE MANTENER LOS OJOS EN EL PUNTO DE FIJACIÓN DURANTE CADA TRIAL. \
+    inst.text = "Práctica: \
+    ES MUY IMPORTANTE QUE TRATES DE MANTENER LOS OJOS EN EL PUNTO DE FIJACIÓN DURANTE CADA TRIAL. \
     Al final de cada bloque puedes descansar lo que necesites. También si estas cansada puedes mover los ojos un poco al final de cada trial. \
+        \
     El experimento tiene una duración de 10 bloques de 6 minutos aproximadamente cada uno. Tomatelo con calma y gracias por participar!"
     inst.draw()
     nextt.draw()
