@@ -52,7 +52,7 @@ def mainexp_subject_info(version): # loading staircase subject data
             # lets create a subject from the scractch.
             expInfo = {}
             expInfo['maindateStr'] = data.getDateStr()
-            subjInfo = {'observer':subj_id, 'ExpVersion': version, 'gender (M/F)': '?', 'age': 0, 'hand (L/R)': '?'}    
+            subjInfo = {'observer':subj_id, 'ExpVersion': version, 'gender (M/F/Other)': '?', 'age': 0, 'hand (L/R)': '?'}    
             # present a dialogue to change params            
             gui.DlgFromDict(subjInfo, title='Orientation decisions: Threshold estimation', fixed=['ExpVersion'], order = [ 'ExpVersion', 'observer']) # fixed=['dateStr']    
                

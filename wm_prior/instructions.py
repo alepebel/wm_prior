@@ -88,7 +88,7 @@ def main_instructions(win):
     
     return
 
-def block_start(win, nblock):
+def block_start(win, nblock, blocklen):
     inst = visual.TextStim(win, pos = [0,0])
     inst.wrapWidth = 20
     inst.height = 0.7
@@ -97,7 +97,7 @@ def block_start(win, nblock):
     nextt.height = 0.7
     nextt.color = "black"
     
-    inst.text = 'Comenzamos bloque ' + str(nblock+1) + ' / 6'
+    inst.text = 'Comenzamos bloque ' + str(nblock+1) + ' / ' + str(blocklen)
         
     nextt.text = "Cuando estes listo/a, pulsa espacio para comenzar "
     inst.draw()

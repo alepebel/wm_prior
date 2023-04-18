@@ -51,8 +51,8 @@ event.globalKeys.add(key='q', modifiers=['ctrl'], func=core.quit)
 
 
 log_on=True
-sst = False # Using parallel port to send triggers
-tobii = False
+sst = True # Using parallel port to send triggers
+tobii = True
 showEyes = False
 
 # Initiating eyetracker
@@ -244,7 +244,7 @@ if prior_2 > 180: prior_2 = prior_2 -360
 prior_1 = np.round(prior_1, 1)
 prior_2 = np.round(prior_2, 1)
 
-block_priors = [0, 0, prior_1, prior_1, prior_1, 0, 0, prior_2, prior_2, prior_2]
+block_priors = [0, 0, prior_1, prior_1, prior_1, prior_1]
 if subj_id == 'test':   block_priors = [0] #[0] # for test demo only one block
 prior_kappa = 1 # kappa for the von mises distribution
 
@@ -366,7 +366,7 @@ for thisBlock in range(main_exp['nblocks']): # iterate over blocks
             else:
                 if np.random.randint(low = 0, high = 10) == 0: 
                     ct = True
-            #ct = False # uncomment this for healthy participants
+            ct = False # uncomment this for healthy participants
             
             # decidign when the CT should appear
             ct_frames_interval =  [(ct_frames * 2), delay_frames-(ct_frames * 2)] # cant be smaller than ct duration, and leave some time from onset and offset of delay

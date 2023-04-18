@@ -15,7 +15,7 @@ def stim_config(ifi):
     # Create all the stimuli
     # Stimuli parameters
     stim['size_CUE'] = 2 # degs # este es el lado del cuadrado del grating
-    stim['radius'] = 10
+    stim['radius'] = 8
 
     return stim
 
@@ -93,7 +93,7 @@ def resp_mapping(win, resp_option_f, basic_stim,  resp_maps, rgbs): # pass resp_
 
 
 def monitor_def():
-    # lets define the monitor if necessary in a dictionary (you can define other monitors def2, def3)
+     # lets define the monitor if necessary in a dictionary (you can define other monitors def2, def3)
     monitor_def1 = {}
     monitor_def1['monitor_name'] = 'mundet_screen' # monitor to use (make sure to define monitors in exp_monitors center.
     monitor_def1['monitor_pixels']  = (1920, 1080)
@@ -113,18 +113,28 @@ def monitor_def():
     monitor_def3['distance2monitor'] = 40
     
     monitor_def4 = {}
-    monitor_def4['monitor_name'] = 'dell_xps13' # monitor to use (make sure to define monitors in exp_monitors center.
-    monitor_def4['monitor_pixels']  = (3200,1800)
-    monitor_def4['monitor_width'] = 30
+    monitor_def4['monitor_name'] = 'IDIBAPS' # monitor to use (make sure to define monitors in exp_monitors center.
+    monitor_def4['monitor_pixels']  = (1920,1080)
+    monitor_def4['monitor_width'] = 58
+    monitor_def4['monitor_height'] = 26.5
     monitor_def4['distance2monitor'] = 60
     
     monitor_def5 = {}
     monitor_def5['monitor_name'] = 'mac_pro13' # monitor to use (make sure to define monitors in exp_monitors center.
     monitor_def5['monitor_pixels']  = (2560,1600)
-    monitor_def5['monitor_width'] = 32
+    monitor_def5['monitor_width'] = 29
+    monitor_def5['monitor_height'] = 18
     monitor_def5['distance2monitor'] = 40
+
+    monitor_def6 = {}
+    monitor_def6['monitor_name'] = 'LENOVO_IDI' # monitor to use (make sure to define monitors in exp_monitors center.
+    monitor_def6['monitor_pixels']  = (1920,1080)
+    monitor_def6['monitor_width'] = 38
+    monitor_def6['monitor_height'] = 21.15
+    monitor_def6['distance2monitor'] = 40
     
-    monitors = [monitor_def1, monitor_def2, monitor_def3, monitor_def4, monitor_def5]
+    
+    monitors = [monitor_def1, monitor_def2, monitor_def3, monitor_def4, monitor_def5, monitor_def6]
     return monitors
         
         
